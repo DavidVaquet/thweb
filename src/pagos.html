@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pago TradersHub Capital</title>
+    <link href="./output.css" rel="stylesheet">
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+
+      </script>
+      <style>
+        /* Estilo para el botón de éxito */
+        #copy-btn.success {
+            background-color: #00ff15; /* Verde Tailwind */
+            color: white;
+            border-color: #00ff15; /* Verde Tailwind */
+        }
+
+        /* Estilo para el toast */
+        #toast {
+            transition: opacity 0.3s ease;
+        }
+
+        #toast.show {
+            opacity: 1;
+        }
+        #toast.hidden {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body class="dark:bg-gray-900 bg-white">
+    
+
+<!-- NAVBAR -->
+<nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600 h-[70px]">
+  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto lg:p-2 md:p-2 sm:p-3">
+    <a href="#home" class="flex items-center space-x-0 rtl:space-x-reverse">
+      <img src="assets/navbar-img/1-fotor-bg-remover-20240923231750.png" class="lg:h-16 sm:h-12  dark:hidden" alt="TRADERHUB LOGO">
+      <!-- Imagen para modo oscuro -->
+      <img src="assets/navbar-img/2-fotor-bg-remover-20240923231927.png" class="lg:h-16 sm:h-12 hidden dark:block" alt="Logo Dark">
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">TRADERSHUB CAPITAL</span>
+    </a>
+    <div class="flex md:order-2 space-x-3 rtl:space-x-reverse">
+      <!-- Botón Modo Claro/Oscuro -->
+      <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-4">
+        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+      </button>
+      <!-- Botón EMPIEZA AHORA -->
+      <button type="button" class="text-white bg-verdeprueba hover:bg-verdehover focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded text-sm px-4 py-2 text-center dark:bg-verdeprueba dark:hover:bg-verdehover">EMPIEZA AHORA</button>
+      <!-- Botón para abrir el menú en móvil -->
+      <button id="menu-toggle" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/></svg>
+      </button>
+    </div>
+    <div class="items-center justify-center dark:justify-center  hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+      <ul class="flex flex-col p-4 md:p-0 mt-2 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a href="index.html#home" target="_blank" class="block py-2 px-3 text-azulprueba rounded md:bg-transparent md:text-azulprueba md:p-0 md:dark:text-white">INICIO</a>
+        </li>
+        <li>
+          <a href="index.html#nosotros" target="_blank" class="block py-2 px-3 text-azulprueba rounded hover:bg-gray-100 md:hover:bg-transparent md:text-azulprueba md:hover:text-gray-500 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent">NOSOTROS</a>
+        </li>
+        <li>
+          <a href="index.html#servicios" target="_blank" class="block py-2 px-3 text-azulprueba rounded hover:bg-gray-100 md:hover:bg-transparent md:text-azulprueba md:hover:text-gray-500 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent">SERVICIOS</a>
+        </li>
+        <li>
+          <a href="index.html#costos" target="_blank" class="block py-2 px-3 text-azulprueba rounded hover:bg-gray-100 md:hover:bg-transparent md:text-azulprueba md:hover:text-gray-500 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent">COSTOS</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+  <!-- WIDGET TRADINGVIEW -->
+
+<div class="mt-[67px] bg-gray-900 dark:bg-gray-900"> <!-- Espaciado superior para el widget -->
+    <div class="w-full flex justify-center items-center">
+      <!-- TradingView Widget BEGIN -->
+      <div class="tradingview-widget-container">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+        {
+        "symbols": [
+          {
+            "description": "",
+            "proName": "BINANCE:BTCUSD"
+          },
+          {
+            "description": "",
+            "proName": "FOREXCOM:EURUSD"
+          },
+          {
+            "description": "",
+            "proName": "BINANCE:ETHUSD"
+          },
+          {
+            "description": "",
+            "proName": "FOREXCOM:GBPUSD"
+          },
+          {
+            "description": "",
+            "proName": "FOREXCOM:XAUUSD"
+          },
+          {
+            "description": "",
+            "proName": "FOREXCOM:USDJPY"
+          },
+          {
+            "description": "",
+            "proName": "FOREXCOM:EURGBP"
+          }
+        ],
+        "showSymbolLogo": true,
+        "isTransparent": false,
+        "displayMode": "adaptive",
+        "colorTheme": "dark",
+        "locale": "en"
+        }
+        </script>
+      </div>
+      <!-- TradingView Widget END -->
+    </div>
+  </div>
+
+  <!-- Sección PAGOS -->
+<div class="p-6 border-4 border-azulprueba  ml-4 mr-4 rounded-2xl mt-3">
+  <!-- Tamaño de cuenta como un select -->
+  <div class="mb-6">
+      <label for="account-size" class="block text-xl font-semibold mb-2 text-black dark:text-white">Tamaño de cuenta:</label>
+      <div class="relative">
+          <select id="account-size" class="block appearance-none w-full bg-white border-2 border-azulprueba text-lg font-semibold px-4 py-2 pr-8 rounded-lg leading-tight focus:outline-none focus:border-blue-600">
+              <option value="5000">$5.000 USD</option>
+              <option value="10000">$10.000 USD</option>
+              <option value="25000">$25.000 USD</option>
+              <option value="50000">$50.000 USD</option>
+              <option value="100000" selected>$100.000 USD</option>
+              <option value="200000">$200.000 USD</option>
+              <option value="300000">$300.000 USD</option>
+          </select>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-blue-500">
+              &#x25BC;
+          </div>
+      </div>
+  </div>
+
+  <!-- Elegir método de pago -->
+  <div>
+      <label class="block text-xl font-semibold mb-2 text-black dark:text-white">Elegir método de pago:</label>
+      <div class="border-2 border-azulprueba rounded-lg p-4">
+          <!-- Opción Tarjeta de Crédito -->
+          <div class="mb-4">
+              <div class="flex items-center">
+                  <label class="inline-flex items-center">
+                      <input type="radio" name="payment" class="form-radio text-blue-500" disabled>
+                      <span class="ml-2 text-xl font-semibold text-black dark:text-white">Tarjeta de Credito / Debito</span>
+                  </label>
+                  <div class="flex items-center ml-4 space-x-2">
+                      <img src="/src/assets/pagos/american-express_349228.png" alt="AMEX" class="w-10">
+                      <img src="/src/assets/pagos/visa.png" alt="VISA" class="w-10">
+                      <img src="/src/assets/pagos/mastercard.png" alt="MasterCard" class="w-10">
+                      <img src="/src/assets/pagos/paypal.png" alt="PayPal" class="w-10">
+                  </div>
+              </div>
+              <p class="text-sm text-gray-500 mt-1 dark:text-gray-400">Método de pago aún no disponible, nuestro equipo está trabajando para que pronto puedas utilizarlo.</p>
+          </div>
+
+          <!-- Opción Pago con Criptomonedas -->
+          <div>
+              <div class="flex items-center">
+                  <label class="inline-flex items-center">
+                      <input type="radio" name="payment" class="form-radio text-blue-500">
+                      <span class="ml-2 text-xl font-semibold text-black dark:text-white">Pago con Criptomonedas / Cripto Pago</span>
+                  </label>
+              </div>
+              <p class="text-base mt-1 text-black dark:text-white ">Red:</p>
+              <div class="flex items-center mt-2">
+                  <h1 class="text-xl font-semibold text-black dark:text-white rounded border-2 border-azulprueba p-1">BNB Smart Chain (BEP20)</h1>
+              </div>
+
+              <!-- Direccion ID y Código QR -->
+              <div class="flex items-start mt-4 space-x-4">
+                  <!-- Dirección de la BNB Smart Chain -->
+                  <div>
+                      <p class="text-xl font-semibold text-black dark:text-white">Dirección ID:</p>
+                      <p class="text-black dark:text-white font-mono break-all">0xEe6925Ac62Ca18242b2fE836929107c7d6ec9983</p>
+                  </div>
+                  <!-- Botón para copiar -->
+                  <button id="copy-btn" class="ml-2 mt-5 px-3 py-1 border-2 border-azulprueba text-azulprueba rounded-lg text-sm hover:bg-azulprueba hover:text-white transition-all duration-200 ease-in-out">
+                      Copiar
+                  </button>
+                  <!-- Imagen del código QR en otro div -->
+                  <div class="ml-auto">
+                      <div class="flex justify-center items-center w-48 h-48">
+                          <img src="/src/assets/pagos/qr.png" alt="Código QR" class="w-full h-full object-contain mb-36">
+                      </div>
+                  </div>
+                  
+              </div>
+              <div class="mt-2 p-4 bg-white dark:bg-gray-900">
+                <h3 class="text-lg font-bold text-black dark:text-white underline">INFORMACION IMPORTANTE:</h3>
+                <p class="mt-2 text-black dark:text-white text-xl">
+                    Una vez realizado el pago con criptomonedas, por favor apriete el botón
+                    "Enviar comprobante", será dirigido automáticamente a nuestro WhatsApp
+                    de soporte.<br>Nuestro equipo se pondrá en contacto con usted a la brevedad
+                    para solicitar la información necesaria y proceder con la habilitación de su
+                    examen de fondeo. <br> ¡Gracias por confiar en nosotros!
+                </p>
+                <a href="https://wa.me/5491164137544?text=Hola%20TradersHub,%20les%20adjunto%20el%20comprobante:"  target="_blank" class="inline-block mt-5 px-6 py-3 text-black  bg-verdeprueba rounded-lg hover:bg-verdehover">Enviar comprobante</a>
+            </div>
+          </div>
+          </div>
+      </div>
+  </div>
+
+ 
+
+<!-- Toast Notification -->
+<div id="toast" class="hidden fixed top-0 right-0 m-4 bg-green-500 text-white p-3 rounded-lg shadow-md">
+  Dirección copiada al portapapeles!
+</div>
+
+<div class="text-center w-full">
+  
+  
+  <!-- Resumen de Descargo con íconos -->
+  <div class="flex items-center justify-center mt-4">
+    <img src="assets/herramientas/error.png" alt="icono inicio" class="lg:w-8 lg:h-8 mr-4 sm:w-6 sm:h-6">
+    <p class="lg:text-3xl font-bold uppercase text-black dark:text-white text-center sm:text-[19px]">Resumen del Descargo de Responsabilidad General</p>
+    <img src="assets/herramientas/error.png" alt="icono final" class="lg:w-8 lg:h-8 ml-4 sm:w-6 sm:h-6">
+  </div>
+
+  <p class="text-center lg:text-lg text-gray-700 mt-2 font-medium dark:text-white sm:text-[15px] sm:font-normal">
+    El comercio de instrumentos financieros, incluso actividades comerciales simuladas con TradersHub, conlleva un riesgo significativo de pérdida y no es adecuado para todos. La volatilidad de los mercados puede resultar en ganancias o pérdidas mayores que la inversión inicial. TradersHub no proporciona recomendaciones de inversión, y las decisiones de comercio son responsabilidad del cliente. Los resultados pasados no garantizan resultados futuros, y los resultados simulados no representan comercio real. Toda la información proporcionada es general y no constituye asesoramiento de inversión. Las cuentas financiadas por TradersHub son simuladas y operan con fondos virtuales.
+  </p>
+</div>
+
+<!-- FOOTER -->
+
+
+
+<footer class="bg-white rounded-lg shadow dark:bg-gray-900 m-4">
+  <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+      <div class="sm:flex sm:items-center sm:justify-between">
+          <a href="#home" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
+              <img src="assets/navbar-img/2-fotor-bg-remover-20240923231927.png" class="lg:h-[80px] sm:h-[60px] hidden dark:block " alt="TradersHub Logo"/>
+              <img src="assets/navbar-img/1-fotor-bg-remover-20240923231750.png" class="lg:h-[80px] sm:h-[60px] dark:hidden" alt="TradersHub Logo"/>
+              <span class="self-center lg:text-2xl font-semibold whitespace-nowrap dark:text-white sm:text-base">TRADERSHUB CAPITAL</span>
+          </a>
+          <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+              <li>
+                  <a href="index.html#home" target="_blank" class="hover:underline me-4 md:me-6">Inicio</a>
+              </li>
+              <li>
+                  <a href="index.html#nosotros" target="_blank" class="hover:underline me-4 md:me-6">Nosotros</a>
+              </li>
+              <li>
+                  <a href="index.html#servicios" target="_blank" class="hover:underline me-4 md:me-6">Servicios</a>
+              </li>
+              <li>
+                  <a href="index.html#costos" target="_blank" class="hover:underline">Costos</a>
+              </li>
+          </ul>
+      </div>
+      <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+      <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#home" class="hover:underline">TradersHub Capital™</a>. All Rights Reserved.</span>
+  </div>
+</footer>
+  <script src="path/to/flowbite/dist/flowbite.min.js"></script>
+  <script src="controlador.js"></script>
+</body>
+</html>
