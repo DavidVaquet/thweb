@@ -2833,6 +2833,10 @@ input:checked + .toggle-bg {
     width: 100%;
   }
 
+  .mobile\:w-auto {
+    width: auto;
+  }
+
   .mobile\:-translate-x-\[80px\] {
     --tw-translate-x: -80px;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -3262,6 +3266,10 @@ input:checked + .toggle-bg {
 
   .sm\:w-full {
     width: 100%;
+  }
+
+  .sm\:w-\[800px\] {
+    width: 800px;
   }
 
   .sm\:max-w-full {
@@ -4121,6 +4129,10 @@ input:checked + .toggle-bg {
 
   .xl\:w-\[650px\] {
     width: 650px;
+  }
+
+  .xl\:w-\[800px\] {
+    width: 800px;
   }
 
   .xl\:flex-row {
