@@ -2709,6 +2709,14 @@ input:checked + .toggle-bg {
     margin-top: 30px;
   }
 
+  .mobile\:ml-4 {
+    margin-left: 1rem;
+  }
+
+  .mobile\:ml-5 {
+    margin-left: 1.25rem;
+  }
+
   .mobile\:hidden {
     display: none;
   }
