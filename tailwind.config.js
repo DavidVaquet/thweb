@@ -28,7 +28,8 @@ module.exports = {
         'azulv2': '#050055', 
       },
       screens: {
-        'tabletv2': '835px',  // Breakpoint personalizado para pantallas de 1440px
+        'tabletv2': '835px',
+        'mobile': '360px',
       }
     },
   },
