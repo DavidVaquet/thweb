@@ -9,10 +9,17 @@ new TypeIt("#simpleUsage", {
 var themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
 var themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
 
+// Set dark mode as default if no preference is set in localStorage
+if (!localStorage.getItem('color-theme')) {
+    localStorage.setItem('color-theme', 'dark');
+}
+
 // Change the icons inside the button based on previous settings
 if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
     themeToggleLightIcon.classList.remove('hidden');
 } else {
+    document.documentElement.classList.remove('dark');
     themeToggleDarkIcon.classList.remove('hidden');
 }
 
@@ -46,6 +53,7 @@ themeToggleBtn.addEventListener('click', function() {
     }
     
 });
+
 
 document.getElementById('menu-toggle').addEventListener('click', function() {
     const navbar = document.getElementById('navbar-sticky');
